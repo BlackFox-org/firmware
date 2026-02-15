@@ -40,6 +40,11 @@ load_modules() {
 				driver=8733bu
 				adapter_id="bl-m8731bu4"
 				;;
+
+			"0bda:c812" | "0bda:c82c")
+				driver=88x2cu
+				adapter_id="wyvern-200"
+				;;
 		esac
 	done
 
@@ -58,7 +63,7 @@ load_modules() {
 	fi
 
 	
-	modprobe "$driver" "$opt1" "$opt2" MaxTxBufLen=32
+	modprobe "$driver" "$opt1" "$opt2" MaxTxBufLen=12
 	sleep 3
 
 	if ! ifconfig "$wfb_dev" up; then
@@ -128,8 +133,8 @@ start_telemetry() {
 		if [ "$router" = "msposd" ]; then
 			size=$(curl -s localhost/api/v1/config.json | jsonfilter -qe "@.video0.size")
 		fi
-		msposd -b 115200 -c 8 -r "$osd_fps" -m /dev/"$serial" \
-			-o 127.0.0.1:"$port_tx" -z "$size" > /dev/null &
+		msposd -b 115200 -c 8 -osd -r "$osd_fps" -m /dev/"$serial" \
+   -o 127.0.0.1:"$port_tx" -z "$size" > /dev/null &
 
 		sleep 5
 		echo "&L70&F28&G8CPU:&C TEMP:&T\n&B" >/tmp/MSPOSD.msg
@@ -162,15 +167,28 @@ video_settings() {
 				wifibroadcast cli -s .broadcast.stbc 0
 				wifibroadcast cli -s .broadcast.ldpc 0
 				;;
+
+			"0bda:c812" | "0bda:c82c")
+				driver=88x2cu
+				wifibroadcast cli -s .wireless.txpower 20
+				wifibroadcast cli -s .wireless.wlan_adapter wyvern-200
+				wifibroadcast cli -s .broadcast.stbc 1
+				wifibroadcast cli -s .broadcast.ldpc 1
+				;;
 		esac
 	done
 
 	sensor=$(ipcinfo -s)
 	family=$(ipcinfo -f)
 
-	cli -s .isp.sensorConfig /etc/sensors/"$sensor"_"$family".bin
-	cli -s .isp.exposure 16
-	cli -s .video0.fps 60
+	if [ "$sensor" == "imx415" ]; then
+    cli -s .isp.sensorConfig /etc/sensors/imx415_greg_fpvXIX-gpt200.bin
+  else
+    cli -s .isp.sensorConfig /etc/sensors/imx335_greg_fpvVII-gpt200.bin
+  fi
+
+	cli -s .isp.exposure 11
+	cli -s .video0.fps 90
 	cli -s .video0.bitrate 8000
 	cli -s .video0.codec h265
 	cli -s .video0.rcMode cbr
@@ -180,8 +198,9 @@ video_settings() {
 	cli -s .records.notime true
 	cli -s .fpv.enabled true
 	cli -s .fpv.noiseLevel 0
+	cli -s .video0.gopSize 1
 
-	wifibroadcast cli -s .wireless.mlink 3994
+	wifibroadcast cli -s .wireless.mlink 1400
 	wifibroadcast cli -s .wireless.link_control alink
 	sed -i '/alink_drone &/d' /etc/rc.local && sed -i -e '$i alink_drone &' /etc/rc.local
 
