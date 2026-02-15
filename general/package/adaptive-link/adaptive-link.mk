@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ADAPTIVE_LINK_SITE = $(call github,openipc,adaptive-link,$(ADAPTIVE_LINK_VERSION))
+ADAPTIVE_LINK_SITE = $(call github,BlackFox-org,adaptive-link,$(ADAPTIVE_LINK_VERSION))
 ADAPTIVE_LINK_VERSION = '3a831a75cb25df403374fa5104ea494c140695da'
 ADAPTIVE_LINK_DEPENDENCIES = yaml-cli-multi
 
