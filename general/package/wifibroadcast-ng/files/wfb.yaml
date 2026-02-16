@@ -13,5 +13,5 @@ broadcast:
   link_id: 7669206
 telemetry:
   router: msposd
-  serial: ttyS2
+  serial: ttyS3
   osd_fps: 20
