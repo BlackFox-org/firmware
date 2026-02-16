@@ -200,7 +200,7 @@ video_settings() {
 	cli -s .fpv.noiseLevel 0
 	cli -s .video0.gopSize 1
 
-	wifibroadcast cli -s .wireless.mlink 1400
+	wifibroadcast cli -s .wireless.mlink 1500
 	wifibroadcast cli -s .wireless.link_control alink
 	sed -i '/alink_drone &/d' /etc/rc.local && sed -i -e '$i alink_drone &' /etc/rc.local
 
