@@ -5,7 +5,7 @@
 ################################################################################
 
 ADAPTIVE_LINK_SITE = $(call github,BlackFox-org,adaptive-link,$(ADAPTIVE_LINK_VERSION))
-ADAPTIVE_LINK_VERSION = '3a831a75cb25df403374fa5104ea494c140695da'
+ADAPTIVE_LINK_VERSION = '9605e2127146db4e4966ce481c5b13a438d46d69'
 ADAPTIVE_LINK_DEPENDENCIES = yaml-cli-multi
 
 ADAPTIVE_LINK_LICENSE = GPL-3.0
