@@ -4,7 +4,7 @@
 #
 ################################################################################
 QLINK_SITE = $(call github,Vulpisfoglia-dev,QLink,$(QLINK_VERSION))
-QLINK_VERSION = '13b34bf72c7cc575afb86ef5c6f9a369d88cda2d'
+QLINK_VERSION = 'a3f2c8e3421b0b488afcc50582a5eede4b6461fa'
 QLINK_DEPENDENCIES = yaml-cli-multi
 
 QLINK_LICENSE = GPL-3.0
