@@ -3,7 +3,7 @@
 # Adaptive Link
 #
 ################################################################################
-QLINK_SITE = $(call github,Vulpisfolgia-dev,QLink,$(ADAPTIVE_LINK_VERSION))
+QLINK_SITE = $(call github,Vulpisfoglia-dev,QLink,$(ADAPTIVE_LINK_VERSION))
 QLINK_VERSION = '921b73d25fd5b9123b454d7c80790036d7a59728'
 QLINK_DEPENDENCIES = yaml-cli-multi
 
