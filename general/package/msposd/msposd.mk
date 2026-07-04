@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-MSPOSD_SITE = $(call github,openipc,msposd,$(MSPOSD_VERSION))
-MSPOSD_VERSION = HEAD
+MSPOSD_SITE = $(call github,BlackFox-org,msposd,$(MSPOSD_VERSION))
+MSPOSD_VERSION = 04f3c9c46598cbf5ecca5d9d211bb9f7e3d208a5
 MSPOSD_DEPENDENCIES = libevent-openipc
 
 ifeq ($(OPENIPC_SOC_FAMILY),gk7205v200)
